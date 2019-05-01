@@ -733,7 +733,7 @@ static int pmfs_rename(struct inode *old_dir,
 			LE_DATA);
 		/*new_dir->i_version++; */
 		// new_dir->i_ctime = new_dir->i_mtime = CURRENT_TIME_SEC;
-		new_dir->i_ctime = new_dir->i_mtime = CURRENT_TIME_SEC;
+		new_dir->i_ctime = new_dir->i_mtime = current_time(new_dir);
 		pmfs_update_time(new_dir, new_pidir);
 	}
 
