@@ -1697,7 +1697,7 @@ static ssize_t pmfs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
 			// 		iv->iov_len, &offset);
 			// mutex_lock(&inode->i_mutex);
 				iv->iov_len, &iocb->ki_pos);
-			inode_lock(inode)
+			inode_lock(inode);
 		}
 		if (ret < 0)
 			goto err;
@@ -1712,10 +1712,10 @@ static ssize_t pmfs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
 		iv++;
 	}
 	// if (offset != end)
-	// if (iocb->ki_pos != end)
-		"but offset = %lld\n", end, iocb->ki_pos);
+	//"but offset = %lld\n", end, offset);
+	if (iocb->ki_pos != end)
 		printk(KERN_ERR "pmfs: direct_IO: end = %lld"
-			"but offset = %lld\n", end, offset);
+			"but offset = %lld\n", end, iocb->ki_pos);
 	ret = written;
 err:
 	return ret;
